@@ -54,7 +54,7 @@ void Game::MoveGameElements() {
 void Game::FilterIntersections() {
   for (int i = 0; i < opponents_.size(); i++) {
     if (opponents_[i].GetIsActive() && my_player_.GetIsActive() &&
-        my_player_.IntersectsWith(opponents_[i])) {
+        my_player_.IntersectsWith(&opponents_[i])) {
       // opponents_.erase(opponents_.begin() + i);
       opponents_[i].SetIsActive(false);
       my_player_.SetIsActive(false);
@@ -62,7 +62,7 @@ void Game::FilterIntersections() {
       for (int j = 0; j < player_projectiles_.size(); j++) {
         if (opponents_[i].GetIsActive() &&
             player_projectiles_[j].GetIsActive() &&
-            player_projectiles_[j].IntersectsWith(opponents_[i])) {
+            player_projectiles_[j].IntersectsWith(&opponents_[i])) {
           opponents_[i].SetIsActive(false);
           player_projectiles_[j].SetIsActive(false);
         }
@@ -71,7 +71,7 @@ void Game::FilterIntersections() {
   }
   for (int i = 0; i < opponent_projectiles_.size(); i++) {
     if (opponent_projectiles_[i].GetIsActive() && my_player_.GetIsActive() &&
-        my_player_.IntersectsWith(opponent_projectiles_[i])) {
+        my_player_.IntersectsWith(&opponent_projectiles_[i])) {
       opponent_projectiles_[i].SetIsActive(false);
       my_player_.SetIsActive(false);
     }
