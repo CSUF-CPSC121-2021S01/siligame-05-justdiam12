@@ -23,15 +23,15 @@ class Opponent : public GameElement {
 
   Opponent(int x, int y) : GameElement(x, y, 50, 50) {}
 
+  std::unique_ptr<OpponentProjectile> LaunchProjectile();
+
   void Draw(graphics::Image& screen) override;
 
   void Move(const graphics::Image& screen) override;
 
  private:
-  const graphics::Color kRed{255, 0, 0};
-  const graphics::Color kOrange{255, 165, 0};
-  const graphics::Color kYellow{255, 255, 0};
   bool going_right_ = true;
+  int launch_counter = 0;
 };
 
 #endif
