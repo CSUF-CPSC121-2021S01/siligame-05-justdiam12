@@ -4,7 +4,8 @@
 
 void PlayerProjectile::Draw(graphics::Image &screen) {
   graphics::Color pAmmo(0, 255, 0);
-  screen.DrawLine((GetX() + 2), (GetY() + 1), (GetX() + 2), (GetY() + 3), pAmmo);
+  screen.DrawLine((GetX() + 2), (GetY() + 1), (GetX() + 2), (GetY() + 3),
+                  pAmmo);
 }
 
 void Player::Draw(graphics::Image &screen) {
@@ -19,7 +20,7 @@ void Player::Draw(graphics::Image &screen) {
   screen.DrawRectangle((GetX() + 21), (GetY() + 8), 2, 3, army);
 }
 
-void PlayerProjectile::Move(const graphics::Image& screen) {
+void PlayerProjectile::Move(const graphics::Image &screen) {
   SetY(GetY() - 3);
   if (IsOutOfBounds(screen)) {
     SetIsActive(false);
