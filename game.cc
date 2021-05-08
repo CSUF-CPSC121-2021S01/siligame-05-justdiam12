@@ -62,7 +62,9 @@ void Game::FilterIntersections() {
             (*player_projectiles_[j]).IntersectsWith(opponents_[i].get())) {
           (*opponents_[i]).SetIsActive(false);
           (*player_projectiles_[j]).SetIsActive(false);
-          score_ += 1;
+          if (my_player_.GetIsActive()) {
+            score_ += 1;
+          }
         }
       }
     }
@@ -124,6 +126,11 @@ void Game::OnMouseEvent(const graphics::MouseEvent& event) {
       my_player_.SetX(old_x);
       my_player_.SetY(old_y);
     }
+  }
+  if (event.GetMouseAction() == graphics::MouseAction::kDragged ||
+      event.GetMouseAction() == graphics::MouseAction::kPressed) {
+    int new_x = event.GetX() - my_player_.GetWidth() / 2;
+    int new_y = event.GetY() - my_player_.GetHeight() / 2;
     std::unique_ptr<PlayerProjectile> player_proj = std::make_unique<PlayerProjectile>(new_x, new_y);
     player_projectiles_.push_back(std::move(player_proj));
   }
@@ -131,8 +138,10 @@ void Game::OnMouseEvent(const graphics::MouseEvent& event) {
 
 void Game::LaunchProjectiles() {
   for (int i = 0; i < opponents_.size(); i++) {
-    if (opponents_[i]->LaunchProjectile()) {
-      //opponent_projectiles_.push_back(std::move(opponents_[i]->LaunchProjectile()));
+    std::unique_ptr<OpponentProjectile> opponent_proj_ = std::make_unique<OpponentProjectile>(0, 0);
+    opponent_proj_ = opponents_[i]->LaunchProjectile();
+    if (opponent_proj_) {
+      opponent_projectiles_.push_back(std::move(opponent_proj_));
     }
   }
 }
