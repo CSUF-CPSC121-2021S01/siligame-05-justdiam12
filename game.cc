@@ -129,12 +129,12 @@ void Game::OnMouseEvent(const graphics::MouseEvent& event) {
   }
 }
 
-void Game::OnAnimationStep() {
-  
-  MoveGameElements();
-  FilterIntersections();
-  UpdateScreen();
-  game_screen_.Flush();
+void Game::LaunchProjectiles() {
+  for (int i = 0; i < opponents_.size(); i++) {
+    if (opponents_[i]->LaunchProjectile()) {
+      //opponent_projectiles_.push_back(std::move(opponents_[i]->LaunchProjectile()));
+    }
+  }
 }
 
 void Game::RemoveInactive() {
@@ -153,4 +153,16 @@ void Game::RemoveInactive() {
       opponents_.erase(opponents_.begin() + i);
     }
   }
+}
+
+void Game::OnAnimationStep() {
+  if (opponents_.size() == 0) {
+    CreateOpponents();
+  }
+  MoveGameElements();
+  LaunchProjectiles();
+  FilterIntersections();
+  RemoveInactive();
+  UpdateScreen();
+  game_screen_.Flush();
 }
