@@ -11,21 +11,24 @@ void Game::Init() {
 
 void Game::CreateOpponents() {
   for (int i = 0; i < 5; i++) {
-    std::unique_ptr<Opponent> my_opponent = std::make_unique<Opponent>(100 * i, 20);
+    std::unique_ptr<Opponent> my_opponent =
+        std::make_unique<Opponent>(100 * i, 20);
     opponents_.push_back(std::move(my_opponent));
   }
 }
 
 void Game::CreateOpponentProjectiles() {
   for (int i = 0; i < 5; i++) {
-    std::unique_ptr<OpponentProjectile> my_opponent_projectile = std::make_unique<OpponentProjectile>(100 * i, 100);
+    std::unique_ptr<OpponentProjectile> my_opponent_projectile =
+        std::make_unique<OpponentProjectile>(100 * i, 100);
     opponent_projectiles_.push_back(std::move(my_opponent_projectile));
   }
 }
 
 void Game::CreatePlayerProjectiles() {
   for (int i = 0; i < 5; i++) {
-    std::unique_ptr<PlayerProjectile> my_projectile = std::make_unique<PlayerProjectile>(100 * i, 450);
+    std::unique_ptr<PlayerProjectile> my_projectile =
+        std::make_unique<PlayerProjectile>(100 * i, 450);
     player_projectiles_.push_back(std::move(my_projectile));
   }
 }
@@ -131,14 +134,16 @@ void Game::OnMouseEvent(const graphics::MouseEvent& event) {
       event.GetMouseAction() == graphics::MouseAction::kPressed) {
     int new_x = event.GetX() - my_player_.GetWidth() / 2;
     int new_y = event.GetY() - my_player_.GetHeight() / 2;
-    std::unique_ptr<PlayerProjectile> player_proj = std::make_unique<PlayerProjectile>(new_x, new_y);
+    std::unique_ptr<PlayerProjectile> player_proj =
+        std::make_unique<PlayerProjectile>(new_x, new_y);
     player_projectiles_.push_back(std::move(player_proj));
   }
 }
 
 void Game::LaunchProjectiles() {
   for (int i = 0; i < opponents_.size(); i++) {
-    std::unique_ptr<OpponentProjectile> opponent_proj_ = std::make_unique<OpponentProjectile>(0, 0);
+    std::unique_ptr<OpponentProjectile> opponent_proj_ =
+        std::make_unique<OpponentProjectile>(0, 0);
     opponent_proj_ = opponents_[i]->LaunchProjectile();
     if (opponent_proj_) {
       opponent_projectiles_.push_back(std::move(opponent_proj_));
