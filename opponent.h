@@ -14,7 +14,6 @@ class OpponentProjectile : public GameElement {
   void Draw(graphics::Image& screen) override;
 
   void Move(const graphics::Image& screen) override;
-
 };
 
 class Opponent : public GameElement {
