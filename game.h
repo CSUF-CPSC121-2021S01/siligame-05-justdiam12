@@ -54,6 +54,8 @@ class Game : public graphics::AnimationEventListener,
 
   void RemoveInactive();
 
+  void LaunchProjectiles();
+
  private:
   graphics::Image game_screen_;
   std::vector<std::unique_ptr<Opponent>> opponents_;
