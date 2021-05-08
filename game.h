@@ -44,12 +44,12 @@ class Game : public graphics::AnimationEventListener,
 
   int GetScore() { return score_; }
 
-  bool HasLost() { 
-      if (has_lost_) {
-          return true;
-      } else {
-          return false;
-      }
+  bool HasLost() {
+    if (has_lost_) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void RemoveInactive();
