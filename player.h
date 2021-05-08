@@ -29,7 +29,6 @@ class Player : public GameElement {
   void Draw(graphics::Image& screen) override;
 
   void Move(const graphics::Image& screen) override {}
-  
 };
 
 #endif
